@@ -1,21 +1,99 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import TodoInput from './TodoInput';
+import TodoItem from './TodoItem';
 import './App.css';
+import 'normalize.css';
+import './reset.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      newTodo: '',
+      todoList:[],
+      doneList:[]
+    }
+  }
+  
   render() {
+    let todos=this.state.todoList
+              .filter((item)=> !item.delete)
+              .map((item,index)=>{
+                return(
+                  <li key={index}>
+                    <TodoItem todo={item} 
+                      onToggle={this.toggle.bind(this)}
+                      onDelete={this.delete.bind(this)}/>
+                  </li>
+                )
+              });
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className='App'>
+        <h1>我的待办</h1>
+        <div className='inputWrapper'>
+          <TodoInput content={this.state.newTodo}
+            onChange={this.changeTitle.bind(this)}
+            onSubmit={this.addTodo.bind(this)}/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className='toDoing'>
+          <h2>正在进行</h2>
+          <ol className='todoList'>
+            {todos}
+          </ol>
+        </div>
+            
       </div>
     );
   }
+  changeTitle(e){
+    this.setState({
+      newTodo: e.target.value,
+      todoList: this.state.todoList
+    });
+  }
+  addTodo(e){
+    this.state.todoList.push({
+      id:idMaker(),
+      title:e.target.value,
+      status: null,
+      deleted: false
+    });
+    this.setState({
+      newTodo:'',
+      tododList:this.state.todoList
+    }); 
+  }
+  toggle(e,todo){
+    todo.status=todo.status==='completed' ? '':'completed';
+   // console.log('完成了');
+  //  console.log(e);
+  //  console.log(todo);
+    this.setState(this.state);
+  }
+  delete(e,todo){
+    todo.delete=true;
+    this.setState(this.state);
+  }
+  
 }
 
 export default App;
+
+
+let id=0;
+function idMaker(){
+  id+=1;
+  return id;
+}
+
+
+
+
+
+
+
+
+
+
+
+

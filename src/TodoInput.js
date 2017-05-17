@@ -6,7 +6,7 @@ class TodoInput extends Component {
     return (
       <input type='text' value={this.props.content} 
         className='TodoInput'
-        placeholder='ÃÌº”ToDo,ªÿ≥µ'
+        placeholder='add ToDo,enter'
         onChange={this.changeTitle.bind(this)}
         onKeyPress={this.submit.bind(this)}
       />
@@ -14,6 +14,8 @@ class TodoInput extends Component {
   }
   
   changeTitle(e){
+   // console.log(e);
+    //console.log(this);//this:TodoInputÁ±ª
     this.props.onChange(e);
   }
   submit(e){
@@ -23,3 +25,33 @@ class TodoInput extends Component {
   }
 }
 export default TodoInput
+
+/*
+value={this.props.content} ‰ªéÁà∂ÁªÑ‰ª∂Ëé∑ÂèñÂÄº
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
