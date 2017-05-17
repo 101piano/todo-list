@@ -44,7 +44,9 @@
 }
 
 
-
+.doneItem .TodoItem {
+  background-color: #ccc !important;
+}
 
 
 

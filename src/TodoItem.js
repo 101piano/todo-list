@@ -18,8 +18,8 @@ class TodoItem extends Component {
   toggle(e,todo){
     this.props.onToggle(e,this.props.todo);
   }
-  delete(e,todo){
-    this.props.onDelete(e,this.props.todo)
+  delete(e,todo,done){
+    this.props.onDelete(e,this.props.todo);
   }
 }
 export default TodoItem

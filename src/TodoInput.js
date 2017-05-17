@@ -6,7 +6,7 @@ class TodoInput extends Component {
     return (
       <input type='text' value={this.props.content} 
         className='TodoInput'
-        placeholder='add ToDo,enter'
+        placeholder='add ToDo, enter'
         onChange={this.changeTitle.bind(this)}
         onKeyPress={this.submit.bind(this)}
       />
@@ -18,8 +18,8 @@ class TodoInput extends Component {
     //console.log(this);//this:TodoInput类
     this.props.onChange(e);
   }
-  submit(e){
-    if(e.key==='Enter'){
+  submit(e){   
+    if( this.props.content && e.key==='Enter'){
       this.props.onSubmit(e);
     }
   }

@@ -10,20 +10,30 @@ class App extends Component {
     super(props);
     this.state={
       newTodo: '',
-      todoList:[],
-      doneList:[]
+      todoList:[]
     }
   }
   
   render() {
     let todos=this.state.todoList
-              .filter((item)=> !item.delete)
+              .filter((item)=> !item.delete && !(item.status==='completed'))
               .map((item,index)=>{
                 return(
                   <li key={index}>
                     <TodoItem todo={item} 
                       onToggle={this.toggle.bind(this)}
                       onDelete={this.delete.bind(this)}/>
+                  </li>
+                )
+              });
+    let dones=this.state.todoList
+              .filter((item)=> !item.delete && item.status==='completed')
+              .map((item,index)=>{
+                return(
+                  <li key={index} className='doneItem'>
+                    <TodoItem todo={item}
+                     onToggle={this.toggle.bind(this)}
+                     onDelete={this.delete.bind(this)} />
                   </li>
                 )
               });
@@ -41,6 +51,12 @@ class App extends Component {
             {todos}
           </ol>
         </div>
+        <div className='haveDone'>
+          <h2>已经完成</h2>
+          <ol className='doneList'>
+          {dones}
+          </ol>
+        </div>  
             
       </div>
     );
@@ -65,9 +81,6 @@ class App extends Component {
   }
   toggle(e,todo){
     todo.status=todo.status==='completed' ? '':'completed';
-   // console.log('完成了');
-  //  console.log(e);
-  //  console.log(todo);
     this.setState(this.state);
   }
   delete(e,todo){
