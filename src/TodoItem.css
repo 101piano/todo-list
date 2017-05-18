@@ -18,6 +18,8 @@
 }
 .TodoItem .delete {
   position: relative;
+  width: 23px;
+  height: 23px;
 }
 .TodoItem .circle {
   position: absolute;

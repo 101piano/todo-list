@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
+import * as localStore from './localStore';
 import './App.css';
 import 'normalize.css';
 import './reset.css';
@@ -10,11 +11,11 @@ class App extends Component {
     super(props);
     this.state={
       newTodo: '',
-      todoList:[]
-    }
+      todoList: localStore.load('todoList') || []
+    };
   }
   
-  render() {
+  render() {  
     let todos=this.state.todoList
               .filter((item)=> !item.delete && !(item.status==='completed'))
               .map((item,index)=>{
@@ -61,11 +62,17 @@ class App extends Component {
       </div>
     );
   }
+  
+  /*componentDidUpdate(){
+    localStore.save('todoList',this.state.todoList);
+  }*/
+  
   changeTitle(e){
     this.setState({
       newTodo: e.target.value,
       todoList: this.state.todoList
     });
+    localStore.save('todoList', this.state.todoList);
   }
   addTodo(e){
     this.state.todoList.push({
@@ -78,20 +85,22 @@ class App extends Component {
       newTodo:'',
       tododList:this.state.todoList
     }); 
+    localStore.save('todoList', this.state.todoList);
   }
   toggle(e,todo){
     todo.status=todo.status==='completed' ? '':'completed';
     this.setState(this.state);
+    localStore.save('todoList', this.state.todoList);
   }
   delete(e,todo){
     todo.delete=true;
     this.setState(this.state);
+    localStore.save('todoList', this.state.todoList);
   }
   
 }
 
 export default App;
-
 
 let id=0;
 function idMaker(){
