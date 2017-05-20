@@ -6,7 +6,7 @@ class TodoInput extends Component {
     return (
       <input type='text' value={this.props.content} 
         className='TodoInput'
-        placeholder='add ToDo, enter'
+        placeholder='add ToDo, enter回车'
         onChange={this.changeTitle.bind(this)}
         onKeyPress={this.submit.bind(this)}
       />
